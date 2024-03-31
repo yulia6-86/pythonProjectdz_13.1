@@ -1,17 +1,25 @@
 class Category:
     """Создаем класс категорий с атрибутами имя, описание,товары"""
-    number_of_categories = 0
+
     name: str
     description: str
     products: []
-    quantity_prodacts: int
+    all_quantity_category = 0
+    all_quantity_unique_product = 0
+
 
     def __init__(self,name,description,products=[]):
         self.name=name
         self.description=description
         self.products=products
-        self.number_of_categories += 1
-        self.quantity_prodacts= len(self.products)
+        Category.all_quantity_category += 1  # Подсчитывает категории товаров
+        Category.all_quantity_unique_product += len(set(self.products))  # Подсчитывает уникальные продукты
+        self.all_quantity_unique_product= Category.all_quantity_unique_product
+        self.all_quantity_category=Category.all_quantity_category
+
+
+
+
 
 class Product:
     "Создаем класс продуктов с атрибутами имя,описание,цена,количество"
@@ -26,3 +34,10 @@ class Product:
         self.description=description
         self.price=price
         self.quantity=quantity
+
+
+    def __repr__(self):
+        return f"'{self.name}', '{self.description}', {self.price}, {self.quantity}"
+
+
+

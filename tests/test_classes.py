@@ -1,24 +1,27 @@
 import pytest
-from src.classes import Category,Product
+from src.classes import Category
+from src.classes import Product
 
+
+@ pytest.fixture()
+def product_ex():
+    return Product ("Sony", "Описание Sony", 25000, 18)
+@ pytest.fixture()
+def product_ex_2():
+    return Product ("Samsung", "Описание Samsung", 35000, 8)
 @ pytest.fixture()
 def category_tv():
-    return Category ("Телевизоры", "Описание телевизоров", ["Самсунг","Тошиба", "Филипс"])
-@ pytest.fixture()
-def product_model():
-    return Product ("Sony_1", "Описание модели Sony", 25000, 18)
-
+    return Category ("Телевизоры", "Описание телевизоров",[Product ("Sony", "Описание Sony", 25000, 18), Product ("Samsung", "Описание Samsung", 35000, 8)])
 
 def test_init_category(category_tv):
     assert category_tv.name =="Телевизоры"
     assert category_tv.description == "Описание телевизоров"
-    assert category_tv.products == ["Самсунг","Тошиба", "Филипс"]
-    assert category_tv.number_of_categories ==1
-    assert category_tv.quantity_prodacts ==3
+    assert category_tv.all_quantity_category ==1
+    assert category_tv.all_quantity_unique_product ==2
 
 
-def test_init_product(product_model):
-    assert product_model.name =="Sony_1"
-    assert product_model.description == "Описание модели Sony"
-    assert product_model.price == 25000
-    assert product_model.quantity == 18
+def test_init_product(product_ex):
+    assert product_ex.name =="Sony"
+    assert product_ex.description =="Описание Sony"
+    assert product_ex.price == 25000
+    assert product_ex.quantity == 18
