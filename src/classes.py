@@ -14,10 +14,6 @@ class Category:
         self.products=products
         Category.all_quantity_category += 1  # Подсчитывает категории товаров
         Category.all_quantity_unique_product += len(set(self.products))  # Подсчитывает уникальные продукты
-        self.all_quantity_unique_product= Category.all_quantity_unique_product
-        self.all_quantity_category=Category.all_quantity_category
-
-
 
 
 

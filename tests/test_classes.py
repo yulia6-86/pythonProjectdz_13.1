@@ -16,8 +16,8 @@ def category_tv():
 def test_init_category(category_tv):
     assert category_tv.name =="Телевизоры"
     assert category_tv.description == "Описание телевизоров"
-    assert category_tv.all_quantity_category ==1
-    assert category_tv.all_quantity_unique_product ==2
+    assert Category.all_quantity_category ==1
+    assert Category.all_quantity_unique_product ==2
 
 
 def test_init_product(product_ex):
