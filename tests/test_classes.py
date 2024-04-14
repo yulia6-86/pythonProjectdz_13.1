@@ -10,6 +10,9 @@ def product_ex():
 def product_ex_2():
     return Product ("Samsung", "Описание Samsung", 35000, 8)
 @ pytest.fixture()
+def product_ex_3():
+    return Product ("Miele", "Описание Miele", 18000, 88)
+@ pytest.fixture()
 def category_tv():
     return Category ("Телевизоры", "Описание телевизоров",[Product ("Sony", "Описание Sony", 25000, 18), Product ("Samsung", "Описание Samsung", 35000, 8)])
 
@@ -25,3 +28,16 @@ def test_init_product(product_ex):
     assert product_ex.description =="Описание Sony"
     assert product_ex.price == 25000
     assert product_ex.quantity == 18
+
+def test_product_category(category_tv):
+    assert category_tv.list_products  == ['Sony, 25000 руб. Остаток: 18 шт.',
+                                     'Samsung, 35000 руб. Остаток: 8 шт.',
+                                     ]
+
+
+def test_get_price(product_ex_3):
+    assert product_ex_3.get_price == 18000
+    product_ex_3.get_price = 185000
+    assert product_ex_3.get_price == 185000
+
+
