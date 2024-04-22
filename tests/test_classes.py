@@ -41,3 +41,11 @@ def test_get_price(product_ex_3):
     assert product_ex_3.get_price == 185000
 
 
+def test_str_category(category_tv):
+    assert category_tv.__str__() == "Название категории Телевизоры, количество продуктов: 2 шт."
+
+
+def test_add_prodact(product_ex, product_ex_2):
+    assert product_ex + product_ex_2 == 730000
+
+
