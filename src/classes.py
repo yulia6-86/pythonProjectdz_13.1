@@ -30,6 +30,19 @@ class Category:
         return output
 
 
+    def __repr__(self):
+        return f"{self.__class__.__name__} ({self.name} {self.description} {self.__products})"
+
+
+    def __len__(self):
+        """Магический метод для применения функции len"""
+        return len (self.__products)
+
+    def __str__(self):
+        """ Вывод кол-ва продуктов в следующем виде: 'Название категории, количество продуктов: 200 шт.' """
+        return f"Название категории {self.name}, количество продуктов: {self.__len__()} шт."
+
+
 class Product:
     "Создаем класс продуктов с атрибутами имя,описание,цена,количество"
     name: str
@@ -46,7 +59,12 @@ class Product:
 
 
     def __repr__(self):
-        return f"'{self.name}', '{self.description}', {self.price}, {self.quantity}"
+        return f"{self.__class__.__name__} ({self.name} {self.description} {self.price} {self.quantity})"
+
+
+    def __str__(self):
+        """ Вывод списка продуктов в определенном виде"""
+        return f"{self.name}, {self.price} руб Остаток: {self.quantity} шт."
 
     @classmethod
     def create_product(cls,name,description,price,quantity):
@@ -79,6 +97,11 @@ class Product:
 
         else:
             self.price = value
+
+
+    def __add__(self, other):
+        """Магический метод add для возможности сложения экземпляров Класса"""
+        return self.quantity * self.price + other.quantity * other.price
 
 
 
