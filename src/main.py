@@ -23,3 +23,5 @@ print (new)
 print(category_tv)
 
 print (ex_1 + ex_2)
+
+print (len(category_smart))
