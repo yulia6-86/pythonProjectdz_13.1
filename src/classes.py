@@ -34,9 +34,16 @@ class Category:
         return f"{self.__class__.__name__} ({self.name} {self.description} {self.__products})"
 
 
+    #def __len__(self):
+    #        """Магический метод для применения функции len"""
+    #    return len (self.__products)
+
     def __len__(self):
-        """Магический метод для применения функции len"""
-        return len (self.__products)
+        """ Подсчёт кол-ва продуктов в категории. """
+        product_counter = 0
+        for product in self.__products:
+            product_counter += product.quantity
+        return product_counter
 
     def __str__(self):
         """ Вывод кол-ва продуктов в следующем виде: 'Название категории, количество продуктов: 200 шт.' """

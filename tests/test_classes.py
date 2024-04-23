@@ -49,3 +49,7 @@ def test_add_prodact(product_ex, product_ex_2):
     assert product_ex + product_ex_2 == 730000
 
 
+def test_len_prodact(category_tv):
+    assert len (category_tv) == 26
+
+
