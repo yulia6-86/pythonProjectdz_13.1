@@ -1,20 +1,24 @@
 import pytest
 from src.classes import Category
 from src.classes import Product
+from src.classes import Smartphone
 
 
 @ pytest.fixture()
 def product_ex():
-    return Product ("Sony", "Описание Sony", 25000, 18)
+    return Product ("Sony", "Описание Sony", 25000, 18, "черный")
 @ pytest.fixture()
 def product_ex_2():
-    return Product ("Samsung", "Описание Samsung", 35000, 8)
+    return Product ("Samsung", "Описание Samsung", 35000, 8, "белый")
 @ pytest.fixture()
 def product_ex_3():
-    return Product ("Miele", "Описание Miele", 18000, 88)
+    return Product ("Miele", "Описание Miele", 18000, 88, "черный")
+@ pytest.fixture()
+def product_ex_4():
+    return Smartphone ("Miele", "Описание Miele", 18000, 88, "черный",2,"S9", 156)
 @ pytest.fixture()
 def category_tv():
-    return Category ("Телевизоры", "Описание телевизоров",[Product ("Sony", "Описание Sony", 25000, 18), Product ("Samsung", "Описание Samsung", 35000, 8)])
+    return Category ("Телевизоры", "Описание телевизоров",[Product ("Sony", "Описание Sony", 25000, 18, "черный"), Product ("Samsung", "Описание Samsung", 35000, 8, "белый")])
 
 def test_init_category(category_tv):
     assert category_tv.name =="Телевизоры"
@@ -42,11 +46,17 @@ def test_get_price(product_ex_3):
 
 
 def test_str_category(category_tv):
-    assert category_tv.__str__() == "Название категории Телевизоры, количество продуктов: 2 шт."
+    assert category_tv.__str__() == "Название категории Телевизоры, количество продуктов: 26 шт."
 
 
 def test_add_prodact(product_ex, product_ex_2):
     assert product_ex + product_ex_2 == 730000
+
+
+def test_add_product(product_ex, product_ex_4):
+    with pytest.raises(TypeError):
+         assert product_ex.__add__(product_ex_4) == 2034000
+
 
 
 def test_len_prodact(category_tv):

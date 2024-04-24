@@ -17,7 +17,9 @@ class Category:
 
 
     def add_products(self, value):
-        """Добавление товаров в cписок """
+        """Добавление товаров в cписок только объекты Product или его наследников"""
+        if not isinstance(value, Product):
+            raise TypeError
         self.__products.append(value)
 
 
@@ -56,13 +58,15 @@ class Product:
     description: str
     price: float
     quantity: int
+    color = str
 
 
-    def __init__(self,name,description,price,quantity):
+    def __init__(self,name,description,price,quantity, color):
         self.name=name
         self.description=description
         self.price=price
         self.quantity=quantity
+        self.color = color
 
 
     def __repr__(self):
@@ -74,8 +78,8 @@ class Product:
         return f"{self.name}, {self.price} руб Остаток: {self.quantity} шт."
 
     @classmethod
-    def create_product(cls,name,description,price,quantity):
-        return cls (name,description,price,quantity)
+    def create_product(cls,name,description,price,quantity,color):
+        return cls (name,description,price,quantity, color)
 
     @property
     def get_price(self):
@@ -107,8 +111,32 @@ class Product:
 
 
     def __add__(self, other):
-        """Магический метод add для возможности сложения экземпляров Класса"""
+        """Магический метод add для возможности сложения экземпляров Класса Складывать можно только объекты из одинаковых категорий"""
+        if type(other) is not type(self):
+            raise TypeError
         return self.quantity * self.price + other.quantity * other.price
+
+
+
+class Smartphone(Product):
+    productivity = int  # Производительность
+    model = str  # Модель
+    memory = int  # Емкость внутренней памяти
+    def __init__(self, name, description, price, quantity, color, productivity,model, memory):
+        super().__init__(name, description, price, quantity,color)
+        self.productivity = productivity
+        self.model = model
+        self.memory = memory
+
+
+
+class Lawn_grass(Product):
+
+       def __init__(self, name, description, price, quantity, color, country, period):
+        super().__init__(name, description, price, quantity, color)
+        self.country = country
+        self.period = period
+
 
 
 
