@@ -1,3 +1,51 @@
+from abc import ABC, abstractmethod
+
+
+class AbstractProduct (ABC):
+    @abstractmethod
+    def get_price(self):
+        """
+        Функция для получения цены продукта
+        """
+        pass
+
+    @abstractmethod
+    def create_product(self, value):
+        """
+        Функция для инициализации нового объекта
+        """
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        """
+        Функция для отображения сжатой информации о продукте
+        """
+        pass
+
+
+    @abstractmethod
+    def __add__(self, other):
+        """
+        Функция для отображения информации о сумме всех продуктов данной категории
+        """
+        pass
+
+
+class MixinRepr:
+
+    def __init__(self, *args, **kwargs):
+        """
+        Функция печатает информацию какой объект был создан и с какими свойствами
+        """
+        print(repr(self))
+
+    def __repr__(self):
+        """
+        Функция возвращает строковое отображение объекта при его создании
+        """
+        return f"{self.__class__.__name__}({self.__dict__})"
+
 class Category:
     """Создаем класс категорий с атрибутами имя, описание,товары"""
 
@@ -52,7 +100,7 @@ class Category:
         return f"Название категории {self.name}, количество продуктов: {self.__len__()} шт."
 
 
-class Product:
+class Product (AbstractProduct, MixinRepr):
     "Создаем класс продуктов с атрибутами имя,описание,цена,количество"
     name: str
     description: str
@@ -69,8 +117,8 @@ class Product:
         self.color = color
 
 
-    def __repr__(self):
-        return f"{self.__class__.__name__} ({self.name} {self.description} {self.price} {self.quantity})"
+    #def __repr__(self):
+    #    return f"{self.__class__.__name__} ({self.name} {self.description} {self.price} {self.quantity})"
 
 
     def __str__(self):
@@ -118,7 +166,7 @@ class Product:
 
 
 
-class Smartphone(Product):
+class Smartphone(Product, AbstractProduct):
     productivity = int  # Производительность
     model = str  # Модель
     memory = int  # Емкость внутренней памяти
@@ -130,7 +178,7 @@ class Smartphone(Product):
 
 
 
-class Lawn_grass(Product):
+class Lawn_grass(Product, AbstractProduct):
 
        def __init__(self, name, description, price, quantity, color, country, period):
         super().__init__(name, description, price, quantity, color)

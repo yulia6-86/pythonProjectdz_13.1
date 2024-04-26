@@ -22,6 +22,8 @@ print (new)
 
 print(category_tv)
 
-print (ex_1 + ex_2)
+print (ex_1 + ex_3)
 
 print (len(category_smart))
+
+print (repr(ex_2))
