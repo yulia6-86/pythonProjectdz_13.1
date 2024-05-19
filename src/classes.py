@@ -2,12 +2,12 @@ from abc import ABC, abstractmethod
 
 
 class AbstractProduct (ABC):
-    @abstractmethod
-    def get_price(self):
-        """
-        Функция для получения цены продукта
-        """
-        pass
+   # @abstractmethod
+    #def get_price(self):
+       # """
+      #  Функция для получения цены продукта
+       # """
+       # pass
 
     @abstractmethod
     def create_product(self, value):
@@ -16,20 +16,20 @@ class AbstractProduct (ABC):
         """
         pass
 
-    @abstractmethod
-    def __str__(self):
-        """
-        Функция для отображения сжатой информации о продукте
-        """
-        pass
+    #@abstractmethod
+    #def __str__(self):
+    #    """
+     #   Функция для отображения сжатой информации о продукте
+     #   """
+     #   pass
 
 
-    @abstractmethod
-    def __add__(self, other):
-        """
-        Функция для отображения информации о сумме всех продуктов данной категории
-        """
-        pass
+   # @abstractmethod
+    #def __add__(self, other):
+      #  """
+      #  Функция для отображения информации о сумме всех продуктов данной категории
+       # """
+      #  pass
 
 
 class MixinRepr:
@@ -45,6 +45,7 @@ class MixinRepr:
         Функция возвращает строковое отображение объекта при его создании
         """
         return f"{self.__class__.__name__}({self.__dict__})"
+
 
 class Category:
     """Создаем класс категорий с атрибутами имя, описание,товары"""
@@ -118,7 +119,7 @@ class Product (AbstractProduct, MixinRepr):
 
 
     #def __repr__(self):
-    #    return f"{self.__class__.__name__} ({self.name} {self.description} {self.price} {self.quantity})"
+        #return f"{self.__class__.__name__} ({self.name} {self.description} {self.price} {self.quantity})"
 
 
     def __str__(self):
@@ -166,7 +167,7 @@ class Product (AbstractProduct, MixinRepr):
 
 
 
-class Smartphone(Product, AbstractProduct):
+class Smartphone(Product):
     productivity = int  # Производительность
     model = str  # Модель
     memory = int  # Емкость внутренней памяти
@@ -176,14 +177,27 @@ class Smartphone(Product, AbstractProduct):
         self.model = model
         self.memory = memory
 
+    @classmethod
+    def create_product(cls, name, description, price, quantity, color, productivity,model, memory):
+        return cls(name, description, price, quantity, color, productivity,model, memory)
+
+    #def __repr__(self):
+    #    return super().__repr__()
 
 
-class Lawn_grass(Product, AbstractProduct):
-
-       def __init__(self, name, description, price, quantity, color, country, period):
+class Lawn_grass(Product):
+    def __init__(self, name, description, price, quantity, color, country, period):
         super().__init__(name, description, price, quantity, color)
         self.country = country
         self.period = period
+
+    @classmethod
+    def create_product(cls, name, description, price, quantity, color, country, period):
+        return cls(name, description, price, quantity, color, country, period)
+
+    #def __repr__(self):
+     #   return super().__repr__()
+
 
 
 

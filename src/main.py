@@ -1,4 +1,4 @@
-from src.classes import Category,Product,Smartphone
+from src.classes import Category,Product,Smartphone,Lawn_grass
 
 ex_1= Product ("Sony", "Описание Sony", 25000, 18, "белый")
 ex_2= Smartphone ("Samsung", "Описание Samsung", 35000, 8,"черный",2,"S9", 156)
@@ -27,3 +27,9 @@ print (ex_1 + ex_3)
 print (len(category_smart))
 
 print (repr(ex_2))
+
+new1=Smartphone.create_product("Miele", "Описание Miele",18000,88,"черный",128, "e34", 256)
+print (repr(new1))
+
+new2=Lawn_grass.create_product("Miele", "Описание Miele",18000,9,"черный", "germany", 2023)
+print (repr(new2))
