@@ -2,12 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class AbstractProduct (ABC):
-   # @abstractmethod
-    #def get_price(self):
-       # """
-      #  Функция для получения цены продукта
-       # """
-       # pass
 
     @abstractmethod
     def create_product(self, value):
@@ -15,21 +9,6 @@ class AbstractProduct (ABC):
         Функция для инициализации нового объекта
         """
         pass
-
-    #@abstractmethod
-    #def __str__(self):
-    #    """
-     #   Функция для отображения сжатой информации о продукте
-     #   """
-     #   pass
-
-
-   # @abstractmethod
-    #def __add__(self, other):
-      #  """
-      #  Функция для отображения информации о сумме всех продуктов данной категории
-       # """
-      #  pass
 
 
 class MixinRepr:
@@ -56,17 +35,16 @@ class Category:
     all_quantity_category = 0
     all_quantity_unique_product = 0
 
-
-    def __init__(self,name,description,products=[]):
+    def __init__ (self,name,description,products=[]):
         self.name=name
         self.description=description
         self.__products=products
         Category.all_quantity_category += 1  # Подсчитывает категории товаров
         Category.all_quantity_unique_product += len(set(self.__products))  # Подсчитывает уникальные продукты
 
-
-    def add_products(self, value):
+    def add_products(self,value):
         """Добавление товаров в cписок только объекты Product или его наследников"""
+
         if not isinstance(value, Product):
             raise TypeError
         self.__products.append(value)
@@ -80,14 +58,8 @@ class Category:
             output.append (f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.')
         return output
 
-
     def __repr__(self):
         return f"{self.__class__.__name__} ({self.name} {self.description} {self.__products})"
-
-
-    #def __len__(self):
-    #        """Магический метод для применения функции len"""
-    #    return len (self.__products)
 
     def __len__(self):
         """ Подсчёт кол-ва продуктов в категории. """
@@ -101,7 +73,7 @@ class Category:
         return f"Название категории {self.name}, количество продуктов: {self.__len__()} шт."
 
 
-class Product (AbstractProduct, MixinRepr):
+class Product (MixinRepr, AbstractProduct):
     "Создаем класс продуктов с атрибутами имя,описание,цена,количество"
     name: str
     description: str
@@ -109,26 +81,21 @@ class Product (AbstractProduct, MixinRepr):
     quantity: int
     color = str
 
-
     def __init__(self,name,description,price,quantity, color):
         self.name=name
         self.description=description
         self.price=price
         self.quantity=quantity
         self.color = color
-
-
-    #def __repr__(self):
-        #return f"{self.__class__.__name__} ({self.name} {self.description} {self.price} {self.quantity})"
-
+        super().__init__()
 
     def __str__(self):
         """ Вывод списка продуктов в определенном виде"""
         return f"{self.name}, {self.price} руб Остаток: {self.quantity} шт."
 
     @classmethod
-    def create_product(cls,name,description,price,quantity,color):
-        return cls (name,description,price,quantity, color)
+    def create_product(cls, name, description, price, quantity, color):
+        return cls(name,description,price,quantity, color)
 
     @property
     def get_price(self):
@@ -158,19 +125,19 @@ class Product (AbstractProduct, MixinRepr):
         else:
             self.price = value
 
-
     def __add__(self, other):
-        """Магический метод add для возможности сложения экземпляров Класса Складывать можно только объекты из одинаковых категорий"""
+        """Магический метод add для возможности сложения экземпляров Класса Складывать можно только объекты
+        из одинаковых категорий"""
         if type(other) is not type(self):
             raise TypeError
         return self.quantity * self.price + other.quantity * other.price
-
 
 
 class Smartphone(Product):
     productivity = int  # Производительность
     model = str  # Модель
     memory = int  # Емкость внутренней памяти
+
     def __init__(self, name, description, price, quantity, color, productivity,model, memory):
         super().__init__(name, description, price, quantity,color)
         self.productivity = productivity
@@ -178,11 +145,8 @@ class Smartphone(Product):
         self.memory = memory
 
     @classmethod
-    def create_product(cls, name, description, price, quantity, color, productivity,model, memory):
+    def create_product(cls, name, description, price, quantity, color, productivity, model, memory):
         return cls(name, description, price, quantity, color, productivity,model, memory)
-
-    #def __repr__(self):
-    #    return super().__repr__()
 
 
 class Lawn_grass(Product):
@@ -195,8 +159,7 @@ class Lawn_grass(Product):
     def create_product(cls, name, description, price, quantity, color, country, period):
         return cls(name, description, price, quantity, color, country, period)
 
-    #def __repr__(self):
-     #   return super().__repr__()
+
 
 
 

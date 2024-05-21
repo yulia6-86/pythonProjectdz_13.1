@@ -29,7 +29,7 @@ print (len(category_smart))
 print (repr(ex_2))
 
 new1=Smartphone.create_product("Miele", "Описание Miele",18000,88,"черный",128, "e34", 256)
-print (repr(new1))
+print (new1)
 
 new2=Lawn_grass.create_product("Miele", "Описание Miele",18000,9,"черный", "germany", 2023)
-print (repr(new2))
+print (new2)
