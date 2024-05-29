@@ -33,3 +33,6 @@ print (new1)
 
 new2=Lawn_grass.create_product("Miele", "Описание Miele",18000,9,"черный", "germany", 2023)
 print (new2)
+
+new3= category_tv.average_sum
+print (new3)
