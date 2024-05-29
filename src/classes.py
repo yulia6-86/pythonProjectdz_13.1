@@ -47,6 +47,8 @@ class Category:
 
         if not isinstance(value, Product):
             raise TypeError
+        elif value.quantity == 0:
+            raise ValueError #Продукт с нулевым количеством не может быть добавлен
         self.__products.append(value)
 
 
@@ -71,6 +73,20 @@ class Category:
     def __str__(self):
         """ Вывод кол-ва продуктов в следующем виде: 'Название категории, количество продуктов: 200 шт.' """
         return f"Название категории {self.name}, количество продуктов: {self.__len__()} шт."
+
+    def average_sum(self):
+        """
+        Метод, который подсчитывает средний ценник всех товаров.
+        Если в Категории нет  ни одного товар, возвращает 0
+        """
+        try:
+            total_sum = 0
+            for product in self.__products:
+                total_sum += product.price
+            average_sum = total_sum / len(self.__products)
+            return average_sum
+        except ZeroDivisionError:
+            return 0
 
 
 class Product (MixinRepr, AbstractProduct):
